@@ -193,7 +193,7 @@ public class main extends javax.swing.JFrame {
                 
             }
             R.show();
-            dispose();
+            this.setVisible(false);
         } catch (SQLException ex) {
             Logger.getLogger(LockRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
