@@ -159,7 +159,9 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void getInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getInfoActionPerformed
-        // TODO add your handling code here:
+                GET_INFO getInfoPage = new GET_INFO();
+                getInfoPage.show();
+                dispose();
     }//GEN-LAST:event_getInfoActionPerformed
 
     /**
