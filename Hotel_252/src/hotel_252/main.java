@@ -169,6 +169,7 @@ public class main extends javax.swing.JFrame {
         GET_INFO getInfoPage = new GET_INFO();
         getInfoPage.show();
         dispose();
+        //
     }//GEN-LAST:event_getInfoActionPerformed
 
     private void lockRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockRoomActionPerformed
