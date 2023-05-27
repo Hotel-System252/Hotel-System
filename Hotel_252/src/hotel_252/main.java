@@ -214,6 +214,7 @@ public class main extends javax.swing.JFrame {
             Statement stmt = dbCon.getCon().createStatement();
             DefaultTableModel CancleTable = (DefaultTableModel) R.CancleTable.getModel();
             CancleTable.setRowCount(0);
+            
             ResultSet result = stmt.executeQuery("SELECT * FROM books");
 
             while (result.next()) {

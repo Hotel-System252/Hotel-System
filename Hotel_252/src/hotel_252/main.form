@@ -112,9 +112,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="BOOKING"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bookingActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="getInfo">
           <Properties>
