@@ -67,6 +67,11 @@ public class main extends javax.swing.JFrame {
         });
 
         CancelBook.setText("CANCLE BOOK");
+        CancelBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelBookActionPerformed(evt);
+            }
+        });
 
         lockRoom.setText("LOCK ROOM");
         lockRoom.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +207,43 @@ public class main extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_lockRoomActionPerformed
+
+    private void CancelBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBookActionPerformed
+        try {
+            Cancle R = new Cancle();
+            Statement stmt = dbCon.getCon().createStatement();
+            DefaultTableModel CancleTable = (DefaultTableModel) R.CancleTable.getModel();
+            CancleTable.setRowCount(0);
+            ResultSet result = stmt.executeQuery("SELECT * FROM books");
+
+            while (result.next()) {
+
+                int room_number = result.getInt("Room_No");
+                int book_ID = result.getInt("Book_ID");
+                Date checkIn = result.getDate("Check_in");
+                Date checkOut = result.getDate("Check_out");
+                int customerID = result.getInt("Customer_ID");
+                int paymentID = result.getInt("Payment_ID");
+                int nightNo = result.getInt("No_Nights");
+
+                ArrayList dbData = new ArrayList();
+                dbData.add(room_number);
+                dbData.add(book_ID);
+                dbData.add(checkIn);
+                dbData.add(checkOut);
+                dbData.add(customerID);
+                dbData.add(paymentID);
+                dbData.add(nightNo);
+
+                CancleTable.addRow(dbData.toArray());
+
+            }
+            R.show();
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(LockRoom.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_CancelBookActionPerformed
 
     /**
      * @param args the command line arguments

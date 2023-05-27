@@ -156,7 +156,8 @@ public class LockRoom extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        super.setVisible(true);
+        main m = new main();
+        m.show();
         dispose();
         
 
