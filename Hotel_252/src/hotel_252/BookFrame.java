@@ -8,6 +8,8 @@ package hotel_252;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -231,15 +233,8 @@ public class BookFrame extends javax.swing.JFrame {
             getInfoTableObj.setRowCount(0); // To not spam adding same rows 
             ResultSet result = stmt.executeQuery("SELECT * FROM Books Where Room_No IN (SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 ) ORDER BY Room_no");
 
-            /*            System.out.println(result.getRow());
-            result.last();
-            System.out.println(result.getRow());
-            result.beforeFirst();
-            System.out.println(result.getRow());
-            
-            System.out.println(result.getInt("Book_id")); */
             ArrayList roomWBooks = new ArrayList();
-            ArrayList rooms = new ArrayList();
+            ArrayList checkR = new ArrayList();
             while (result.next()) {
                 int room_number = result.getInt("Room_No");
                 int book_id = result.getInt("Book_ID");
@@ -259,43 +254,63 @@ public class BookFrame extends javax.swing.JFrame {
                 if (result.isLast()) {
                     roomWBooks.add(bookEnt);
 
-                        ResultSet result1 = stmt.executeQuery("select price from room_types where type = 'singel'");
-                        result1.next();
+                    ResultSet result1 = stmt.executeQuery("select price from room_types where type = 'singel'");
+                    result1.next();
+                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse("2023-05-29");
+                    Room r = new Room(room_number, "Singel", result1.getInt(1), 1, date1, roomWBooks);
+                    roomWBooks = new ArrayList();
 
-                        Room r = new Room(room_number, "Singel", result1.getInt(1), roomWBooks);
-                        rooms.add(r);
-                        roomWBooks = new ArrayList();
-                    
+                    if (!r.checkAvailable()) {
+                        checkR.add(r);
+                    }
                 } else {
                     result.next();
                     roomWBooks.add(bookEnt);
                     if (room_number != result.getInt("Room_No")) {
-                        
+
                         ResultSet result1 = stmt.executeQuery("select price from room_types where type = 'singel'");
                         result1.next();
-
-                        Room r = new Room(room_number, "Singel", result1.getInt(1), roomWBooks);
-                        rooms.add(r);
+                        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse("2023-05-28");
+                        Room r = new Room(room_number, "Singel", result1.getInt(1), 1, date1, roomWBooks);
                         roomWBooks = new ArrayList();
+
+                        if (!r.checkAvailable()) {
+                            checkR.add(r);
+                        }
                     }
                     result.previous();
                 }
 
-                //getInfoTableObj.addRow(dbData.toArray());
-            }
 
-            result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1");
+                //getInfoTableObj.addRow(dbData.toArray());
+                
+            }
+String not="";
+ 
+                if (checkR.isEmpty()) {
+                    result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 ");
+                }else{
+                    
+                    for (int i = 0; i < checkR.size(); i++) {
+                        Room g= (Room) checkR.get(i);
+                        not+=g.getRoom_No()+",";
+                        
+                    }
+                   not =not.substring(0, not.length()-1);
+                   result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 AND Room_no NOT IN( "+not+")");
+                }
             ArrayList roomsWOBook = new ArrayList();
             while (result.next()) {
                 int room_number = result.getInt("Room_No");
                 roomsWOBook.add(room_number);
             }
-            
 
             System.out.println("");
 
         } catch (SQLException ex) {
             Logger.getLogger(GetInfoFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(BookFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
