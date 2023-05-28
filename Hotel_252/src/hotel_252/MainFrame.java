@@ -206,7 +206,7 @@ public class MainFrame extends javax.swing.JFrame {
                 
             }
             R.show();
-            this.setVisible(false);
+            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(LockRoomFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
