@@ -9,6 +9,6 @@ package hotel_252;
  *
  * @author Nero
  */
-public class Payment {
+public class Dinner {
     
 }

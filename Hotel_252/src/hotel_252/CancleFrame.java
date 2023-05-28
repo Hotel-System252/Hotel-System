@@ -15,12 +15,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Omar
  */
-public class Cancle extends javax.swing.JFrame {
+public class CancleFrame extends javax.swing.JFrame {
 DataBaseConnection dbCon = DataBaseConnection.getconnnection();
     /**
      * Creates new form Cancle
      */
-    public Cancle() {
+    public CancleFrame() {
         initComponents();
     }
 
@@ -122,7 +122,7 @@ DataBaseConnection dbCon = DataBaseConnection.getconnnection();
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        main m = new main();
+        MainFrame m = new MainFrame();
         m.show();
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -144,20 +144,23 @@ DataBaseConnection dbCon = DataBaseConnection.getconnnection();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cancle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CancleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cancle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CancleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cancle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CancleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cancle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CancleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cancle().setVisible(true);
+                new CancleFrame().setVisible(true);
             }
         });
     }

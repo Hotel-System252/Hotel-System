@@ -19,14 +19,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Nero
  */
-public class main extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame {
 
     DataBaseConnection dbCon = DataBaseConnection.getconnnection();
 
     /**
      * Creates new form main
      */
-    public main() {
+    public MainFrame() {
         initComponents();
         Date thisDate = new Date();
         SimpleDateFormat dateForm = new SimpleDateFormat("dd/MM/Y");
@@ -58,6 +58,11 @@ public class main extends javax.swing.JFrame {
         NameReceptionist.setText("jLabel1");
 
         booking.setText("BOOKING");
+        booking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookingActionPerformed(evt);
+            }
+        });
 
         getInfo.setText("GET INFO");
         getInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -166,12 +171,12 @@ public class main extends javax.swing.JFrame {
 
             System.out.println(r.getRow());
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void getInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getInfoActionPerformed
-        GET_INFO getInfoPage = new GET_INFO();
+        GetInfoFrame getInfoPage = new GetInfoFrame();
         getInfoPage.show();
         dispose();
         //
@@ -180,7 +185,7 @@ public class main extends javax.swing.JFrame {
     private void lockRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockRoomActionPerformed
         
         try {
-            LockRoom R = new LockRoom();
+            LockRoomFrame R = new LockRoomFrame();
             Statement stmt = dbCon.getCon().createStatement();
             DefaultTableModel LuckRoom = (DefaultTableModel) R.RoomTable.getModel();
             LuckRoom.setRowCount(0);
@@ -203,14 +208,14 @@ public class main extends javax.swing.JFrame {
             R.show();
             this.setVisible(false);
         } catch (SQLException ex) {
-            Logger.getLogger(LockRoom.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LockRoomFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_lockRoomActionPerformed
 
     private void CancelBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBookActionPerformed
         try {
-            Cancle R = new Cancle();
+            CancleFrame R = new CancleFrame();
             Statement stmt = dbCon.getCon().createStatement();
             DefaultTableModel CancleTable = (DefaultTableModel) R.CancleTable.getModel();
             CancleTable.setRowCount(0);
@@ -242,9 +247,13 @@ public class main extends javax.swing.JFrame {
             R.show();
             dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(LockRoom.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LockRoomFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_CancelBookActionPerformed
+
+    private void bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,20 +272,23 @@ public class main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main().setVisible(true);
+                new MainFrame().setVisible(true);
 
             }
         });
