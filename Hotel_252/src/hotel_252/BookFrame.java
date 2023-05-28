@@ -281,24 +281,22 @@ public class BookFrame extends javax.swing.JFrame {
                     result.previous();
                 }
 
-
                 //getInfoTableObj.addRow(dbData.toArray());
-                
             }
-String not="";
- 
-                if (checkR.isEmpty()) {
-                    result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 ");
-                }else{
-                    
-                    for (int i = 0; i < checkR.size(); i++) {
-                        Room g= (Room) checkR.get(i);
-                        not+=g.getRoom_No()+",";
-                        
-                    }
-                   not =not.substring(0, not.length()-1);
-                   result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 AND Room_no NOT IN( "+not+")");
+            String not = "";
+
+            if (checkR.isEmpty()) {
+                result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 ");
+            } else {
+
+                for (int i = 0; i < checkR.size(); i++) {
+                    Room g = (Room) checkR.get(i);
+                    not += g.getRoom_No() + ",";
+
                 }
+                not = not.substring(0, not.length() - 1);
+                result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 AND Room_no NOT IN( " + not + ")");
+            }
             ArrayList roomsWOBook = new ArrayList();
             while (result.next()) {
                 int room_number = result.getInt("Room_No");

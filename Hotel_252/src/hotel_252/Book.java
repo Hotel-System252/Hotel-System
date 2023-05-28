@@ -5,10 +5,7 @@
  */
 package hotel_252;
 
-/**
- *
- * @author Nero
- */
+import java.util.*;
 public class Book {
 
     int Room_No;
@@ -16,8 +13,8 @@ public class Book {
     int Customer_ID;
     int Payment_ID;
     int Night_No;
-    String Check_In;
-    String Check_Out;
+    Date Check_In;
+    Date Check_Out;
 
     public Book() {
 
@@ -63,19 +60,19 @@ public class Book {
         this.Night_No = Night_No;
     }
 
-    public String getCheck_In() {
+    public Date getCheck_In() {
         return Check_In;
     }
 
-    public void setCheck_In(String Check_In) {
+    public void setCheck_In(Date Check_In) {
         this.Check_In = Check_In;
     }
 
-    public String getCheck_Out() {
+    public Date getCheck_Out() {
         return Check_Out;
     }
 
-    public void setCheck_Out(String Check_Out) {
+    public void setCheck_Out(Date Check_Out) {
         this.Check_Out = Check_Out;
     }
 
