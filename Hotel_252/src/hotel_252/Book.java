@@ -5,12 +5,21 @@
  */
 package hotel_252;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nero
  */
 public class Book extends javax.swing.JFrame {
-
+DataBaseConnection dbCon = DataBaseConnection.getconnnection();
     /**
      * Creates new form Book
      */
@@ -84,6 +93,11 @@ public class Book extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SINGEL", "DOUBLE" }));
 
         jButton1.setText("VIEW AVAILABLE ROOMS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         roomNo.setText("ROOM NUMBER");
 
@@ -204,6 +218,47 @@ public class Book extends javax.swing.JFrame {
     private void RoomTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RoomTableMouseClicked
 
     }//GEN-LAST:event_RoomTableMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+          
+            Statement stmt = dbCon.getCon().createStatement();
+            DefaultTableModel getInfoTableObj = (DefaultTableModel) RoomTable.getModel();
+
+            getInfoTableObj.setRowCount(0); // To not spam adding same rows 
+            ResultSet result = stmt.executeQuery("SELECT * FROM Books Where Room_No IN (SELECT Room_no FROM room_table Where Room_type= 'Singel' )" );
+            System.out.println(result.getRow());
+            result.last();
+            System.out.println(result.getRow()); 
+            result.beforeFirst();
+            System.out.println(result.getRow());
+            
+            System.out.println(result.getInt("Book_id")); 
+            /* while (result.next()) {
+            int room_number = result.getInt("Room_No");
+            int book_id = result.getInt("Book_ID");
+            Date check_in = result.getDate("Check_In");
+            Date check_out = result.getDate("Check_Out");             // it will search for the data in the db
+            String customer_id = result.getString("Customer_ID");     // and it will give each var its value
+            int payment_id = result.getInt("Payment_ID");
+            int number_of_nights = result.getInt("No_Nights");
+            
+            ArrayList dbData = new ArrayList();
+            dbData.add(room_number);
+            dbData.add(book_id);
+            dbData.add(customer_id);
+            dbData.add(payment_id);
+            dbData.add(check_in);
+            dbData.add(check_out);
+            dbData.add(number_of_nights);
+            
+            getInfoTableObj.addRow(dbData.toArray());
+            }*/
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GET_INFO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
