@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -68,18 +70,16 @@ public class BookFrame extends javax.swing.JFrame {
 
         jLabel3.setText("CHECK OUT");
 
-        checkOut.setText("jLabel4");
-
         RoomTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Room Number", "Room Type"
+                "Room Number"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -104,11 +104,18 @@ public class BookFrame extends javax.swing.JFrame {
             }
         });
 
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 14, 1));
+
         roomNo.setText("ROOM NUMBER");
 
         jLabel6.setText("EXTRA SERVICES");
 
         jCheckBox1.setText("BREAKFAST");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox2.setText("DINNER");
 
@@ -221,17 +228,25 @@ public class BookFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RoomTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RoomTableMouseClicked
-
+           
+         
+         int row = RoomTable.getSelectedRow();
+            String selectedRowRoomID = RoomTable.getModel().getValueAt(row, 0).toString();
+            jTextField2.setText(selectedRowRoomID);
     }//GEN-LAST:event_RoomTableMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-
+            
+             LocalDate checkInDate = LocalDate.parse(chickIn.getText(), DateTimeFormatter.ISO_DATE);
+             LocalDate checkoutDate = checkInDate.plusDays((Integer)jSpinner1.getValue());
+            checkOut.setText(checkoutDate.format(DateTimeFormatter.ISO_DATE));
+            
             Statement stmt = dbCon.getCon().createStatement();
-            DefaultTableModel getInfoTableObj = (DefaultTableModel) RoomTable.getModel();
+            DefaultTableModel getBookTableObj = (DefaultTableModel) RoomTable.getModel();
 
-            getInfoTableObj.setRowCount(0); // To not spam adding same rows 
-            ResultSet result = stmt.executeQuery("SELECT * FROM Books Where Room_No IN (SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 ) ORDER BY Room_no");
+            getBookTableObj.setRowCount(0); // To not spam adding same rows 
+            ResultSet result = stmt.executeQuery("SELECT * FROM Books Where Room_No IN (SELECT Room_no FROM room_table Where Room_type= '"+jComboBox1.getSelectedItem()+"' AND state = 1 ) ORDER BY Room_no");
 
             ArrayList roomWBooks = new ArrayList();
             ArrayList checkR = new ArrayList();
@@ -254,10 +269,10 @@ public class BookFrame extends javax.swing.JFrame {
                 if (result.isLast()) {
                     roomWBooks.add(bookEnt);
 
-                    ResultSet result1 = stmt.executeQuery("select price from room_types where type = 'singel'");
+                    ResultSet result1 = stmt.executeQuery("select price from room_types where type = '"+jComboBox1.getSelectedItem()+"'");
                     result1.next();
-                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse("2023-05-29");
-                    Room r = new Room(room_number, "Singel", result1.getInt(1), 1, date1, roomWBooks);
+                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(chickIn.getText());
+                    Room r = new Room(room_number, (String)jComboBox1.getSelectedItem(), result1.getInt(1), (Integer)jSpinner1.getValue(), date1, roomWBooks);
                     roomWBooks = new ArrayList();
 
                     if (!r.checkAvailable()) {
@@ -268,10 +283,10 @@ public class BookFrame extends javax.swing.JFrame {
                     roomWBooks.add(bookEnt);
                     if (room_number != result.getInt("Room_No")) {
 
-                        ResultSet result1 = stmt.executeQuery("select price from room_types where type = 'singel'");
+                        ResultSet result1 = stmt.executeQuery("select price from room_types where type = '"+jComboBox1.getSelectedItem()+"'");
                         result1.next();
-                        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse("2023-05-28");
-                        Room r = new Room(room_number, "Singel", result1.getInt(1), 1, date1, roomWBooks);
+                        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(chickIn.getText());
+                        Room r = new Room(room_number, (String)jComboBox1.getSelectedItem(), result1.getInt(1), (Integer)jSpinner1.getValue(), date1, roomWBooks);
                         roomWBooks = new ArrayList();
 
                         if (!r.checkAvailable()) {
@@ -286,7 +301,7 @@ public class BookFrame extends javax.swing.JFrame {
             String not = "";
 
             if (checkR.isEmpty()) {
-                result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 ");
+                result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= '"+jComboBox1.getSelectedItem()+"' AND state = 1 ");
             } else {
 
                 for (int i = 0; i < checkR.size(); i++) {
@@ -295,13 +310,16 @@ public class BookFrame extends javax.swing.JFrame {
 
                 }
                 not = not.substring(0, not.length() - 1);
-                result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= 'Singel' AND state = 1 AND Room_no NOT IN( " + not + ")");
+                result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= '"+jComboBox1.getSelectedItem()+"' AND state = 1 AND Room_no NOT IN( " + not + ")");
             }
-            ArrayList roomsWOBook = new ArrayList();
+            
             while (result.next()) {
                 int room_number = result.getInt("Room_No");
+                ArrayList roomsWOBook = new ArrayList();
                 roomsWOBook.add(room_number);
+                getBookTableObj.addRow(roomsWOBook.toArray());
             }
+            
 
             System.out.println("");
 
@@ -311,6 +329,10 @@ public class BookFrame extends javax.swing.JFrame {
             Logger.getLogger(BookFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
      * @param args the command line arguments
