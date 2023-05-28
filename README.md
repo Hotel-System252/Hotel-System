@@ -11,3 +11,12 @@ Welcome to the Hotel Booking Management System project! Our system is designed t
 **4-Room Locking and Unlocking:** In certain situations, the receptionist may need to temporarily lock a room for maintenance or updates. Our system includes a room locking feature that allows receptionists to mark a room as unavailable for bookings. This ensures that no further reservations are made for that room during the specified period, facilitating uninterrupted maintenance work. Once the maintenance or updates are completed, the receptionist can also unlock the room from the same function, making it available for bookings again.
 
 **5-Cancellation:** Guests occasionally need to cancel their bookings, and our system simplifies the cancellation process. Receptionists can efficiently manage cancellations.
+
+## ER Diagram
+
+![ERupdated](https://github.com/Hotel-System252/Hotel-System/assets/98660298/29d6d49e-8ec8-4ab2-b85f-837688d24f38)
+
+## Schema 
+
+![Schema ](https://github.com/Hotel-System252/Hotel-System/assets/98660298/33a028aa-a0a5-4f44-9f81-9d22da9870b4)
+
