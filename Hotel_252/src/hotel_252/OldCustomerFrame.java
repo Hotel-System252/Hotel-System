@@ -68,6 +68,11 @@ public class OldCustomerFrame extends javax.swing.JFrame {
         jButton1.setText("Return");
 
         jButton2.setText("Next Step");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         CustomerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -169,6 +174,10 @@ public class OldCustomerFrame extends javax.swing.JFrame {
             Logger.getLogger(LockRoomFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ShowButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

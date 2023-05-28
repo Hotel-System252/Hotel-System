@@ -141,16 +141,38 @@ public class NewCustomerFrame extends javax.swing.JFrame {
             result.last();
             // if their is no matched insert the new customer info 
             if (result.getRow() == 0) {
-                  stmt.execute("insert into CUSTOMERS values(" + IDField.getText() + ",'" + NameField.getText() + "'," + AgeField.getText() + "," + PhoneField.getText() + ")");
+             stmt.execute("insert into CUSTOMERS values(" + IDField.getText() + ",'" + NameField.getText() + "'," + AgeField.getText() + "," + PhoneField.getText() + ")");
             JOptionPane.showMessageDialog(null, "Seccefuly Added");
+            
+            //Show Payment info into Payment Table in PaymentFrame
             PaymentFrame f = new PaymentFrame();
+            DefaultTableModel Payment = (DefaultTableModel) f.PaymentTable.getModel();
+            Payment.setRowCount(0);
+            result = stmt.executeQuery("SELECT * FROM Book");
+            //Store Payment info onto ArrayList
+            /*
+            while (result.next()) {
+                
+                int room_number = result.getInt("");
+                String room_Type = result.getString("");
+                int state= result.getInt("State");
+
+                ArrayList dbData = new ArrayList();
+                dbData.add(room_number);
+                dbData.add(room_Type);
+                dbData.add(state);
+
+                Payment.addRow(dbData.toArray());
+                
+            }
+            */
             f.show();
             dispose();
             // if their is match show message 
             }else{
                 JOptionPane.showMessageDialog(null, "ID is Used, Please Enter Another ID");                
             }
-  
+            
            
           
         } catch (Exception ex) {
