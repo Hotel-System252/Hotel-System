@@ -10,7 +10,23 @@ package hotel_252;
  * @author Nero
  */
 public class Payment {
-    private int totalPrice;
-    private Discount discountStrategy;
 
+    private int totalPrice;
+    private Extra ExtraStrategy;
+
+    public Payment(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setExtraStrategy(Extra ExtraStrategy) {
+        this.ExtraStrategy = ExtraStrategy;
+    }
+
+    public int applyExtra() {
+        if (ExtraStrategy != null) {
+            totalPrice = ExtraStrategy.applyExtra(totalPrice);
+            
+        } 
+        return totalPrice;
+    }
 }

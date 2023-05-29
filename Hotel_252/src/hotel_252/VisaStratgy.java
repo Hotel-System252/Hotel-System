@@ -13,7 +13,9 @@ public class VisaStratgy implements Extra{
 
     @Override
     public int applyExtra(int totalPrice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                double ExtraPercentage = 1.02;
+        double ExtraAmount = totalPrice * ExtraPercentage;
+        return (int) Math.ceil(ExtraAmount);
     }
     
 }

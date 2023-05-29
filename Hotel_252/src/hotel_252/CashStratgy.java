@@ -13,10 +13,9 @@ public class CashStratgy implements Extra{
 
     @Override
     public int applyExtra(int totalPrice) {
-                // Apply KSA discount logic
-        double discountPercentage = 1.2; // 20% 
-        double discountAmount = totalPrice * discountPercentage;
-        return (int) Math.ceil(discountAmount);
+        double ExtraPercentage = 1.4;  
+        double ExtraAmount = totalPrice * ExtraPercentage;
+        return (int) Math.ceil(ExtraAmount);
     }
     
 }
