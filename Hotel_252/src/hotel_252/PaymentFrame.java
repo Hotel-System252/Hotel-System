@@ -10,7 +10,7 @@ package hotel_252;
  * @author Nero
  */
 public class PaymentFrame extends javax.swing.JFrame {
-
+    
     public Book book;
 
     /**
@@ -41,7 +41,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         PaymentTable = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        TotalPriceBeforeLabel = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -132,8 +132,8 @@ public class PaymentFrame extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setText("Total Price: ");
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel7.setText("-");
+        TotalPriceBeforeLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        TotalPriceBeforeLabel.setText("-");
 
         jButton3.setText("Apply");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +159,7 @@ public class PaymentFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7))
+                                .addComponent(TotalPriceBeforeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel3)
@@ -187,7 +187,7 @@ public class PaymentFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(TotalPriceBeforeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -231,10 +231,19 @@ public class PaymentFrame extends javax.swing.JFrame {
         if (jComboBox1.getSelectedItem() == "Cash") {
             Extra cashExtra = new CashStratgy();
             payment.setExtraStrategy(cashExtra);
-            priceAfter=payment.applyExtra();
+            priceAfter = payment.applyExtra();
         } else if (jComboBox1.getSelectedItem() == "Mada") {
+            Extra madaExtra = new MadaStratgy();
+            payment.setExtraStrategy(madaExtra);
+            priceAfter = payment.applyExtra();
         } else if (jComboBox1.getSelectedItem() == "Visa") {
+            Extra visaExtra = new VisaStratgy();
+            payment.setExtraStrategy(visaExtra);
+            priceAfter = payment.applyExtra();
         } else if (jComboBox1.getSelectedItem() == "Mastercard") {
+            Extra mastercardExtra = new MastercardStratgy();
+            payment.setExtraStrategy(mastercardExtra);
+            priceAfter = payment.applyExtra();
         }
         jLabel5.setText(String.valueOf(priceAfter));
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -279,6 +288,7 @@ public class PaymentFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTable PaymentTable;
+    public javax.swing.JLabel TotalPriceBeforeLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -288,7 +298,6 @@ public class PaymentFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

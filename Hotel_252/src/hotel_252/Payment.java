@@ -25,8 +25,7 @@ public class Payment {
     public int applyExtra() {
         if (ExtraStrategy != null) {
             totalPrice = ExtraStrategy.applyExtra(totalPrice);
-            
-        } 
+        }
         return totalPrice;
     }
 }

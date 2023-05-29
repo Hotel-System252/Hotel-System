@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Nero
  */
 public class NewCustomerFrame extends javax.swing.JFrame {
+
     public Book book;
     //DB Connection
     DataBaseConnection dbCon = DataBaseConnection.getconnnection();
@@ -137,25 +138,24 @@ public class NewCustomerFrame extends javax.swing.JFrame {
         try {
             Statement stmt = dbCon.getCon().createStatement();
             // Check if their doublcatid ID from customer table 
-            ResultSet result = stmt.executeQuery("SELECT * FROM CUSTOMERS WHERE Customer_ID = "+ IDField.getText());
+            ResultSet result = stmt.executeQuery("SELECT * FROM CUSTOMERS WHERE Customer_ID = " + IDField.getText());
             result.last();
             // if their is no matched insert the new customer info 
             if (result.getRow() == 0) {
-             stmt.execute("insert into CUSTOMERS values(" + IDField.getText() + ",'" + NameField.getText() + "'," + AgeField.getText() + "," + PhoneField.getText() + ")");
-            JOptionPane.showMessageDialog(null, "Seccefuly Added");
-            
-            //Show Payment info into Payment Table in PaymentFrame
-            PaymentFrame f = new PaymentFrame();
-            f.show();
-            f.book = book;
-            dispose();
-            // if their is match show message 
-            }else{
-                JOptionPane.showMessageDialog(null, "ID is Used, Please Enter Another ID");                
+                stmt.execute("insert into CUSTOMERS values(" + IDField.getText() + ",'" + NameField.getText() + "'," + AgeField.getText() + "," + PhoneField.getText() + ")");
+                JOptionPane.showMessageDialog(null, "Seccefuly Added");
+
+                //Show Payment info into Payment Table in PaymentFrame
+                PaymentFrame f = new PaymentFrame();
+                f.show();
+                f.book = book;
+                f.TotalPriceBeforeLabel.setText(String.valueOf(book.getTotalPrice()));
+                dispose();
+                // if their is match show message 
+            } else {
+                JOptionPane.showMessageDialog(null, "ID is Used, Please Enter Another ID");
             }
-            
-           
-          
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }

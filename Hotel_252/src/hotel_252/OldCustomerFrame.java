@@ -187,6 +187,7 @@ public class OldCustomerFrame extends javax.swing.JFrame {
         PaymentFrame f = new PaymentFrame();
         f.show();
         f.book = book;
+        f.TotalPriceBeforeLabel.setText(String.valueOf(book.getTotalPrice()));
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

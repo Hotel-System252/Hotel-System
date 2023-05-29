@@ -13,7 +13,7 @@ public class VisaStratgy implements Extra{
 
     @Override
     public int applyExtra(int totalPrice) {
-                double ExtraPercentage = 1.02;
+        double ExtraPercentage = 1.02;
         double ExtraAmount = totalPrice * ExtraPercentage;
         return (int) Math.ceil(ExtraAmount);
     }

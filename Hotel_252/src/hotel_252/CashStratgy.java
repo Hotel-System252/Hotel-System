@@ -13,7 +13,7 @@ public class CashStratgy implements Extra{
 
     @Override
     public int applyExtra(int totalPrice) {
-        double ExtraPercentage = 1.4;  
+        double ExtraPercentage = 1.00;  
         double ExtraAmount = totalPrice * ExtraPercentage;
         return (int) Math.ceil(ExtraAmount);
     }
