@@ -26,6 +26,7 @@ public class Book {
     public void totalPrice() {
         if (type.equalsIgnoreCase("singel")) {
             Room r = new SingelRoomType();
+            setType(type);
             if (breakFast) {
                 r = new BreakFast(r);
             }
@@ -41,6 +42,7 @@ public class Book {
             totalPrice = r.cost() * Night_No;
         } else if (type.equalsIgnoreCase("double")) {
             Room r = new DoubleRoomType();
+            setType(type);
             if (breakFast) {
                 r = new BreakFast(r);
             }

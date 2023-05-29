@@ -118,6 +118,11 @@ public class BookFrame extends javax.swing.JFrame {
         });
 
         jCheckBox2.setText("DINNER");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
 
         jCheckBox3.setText("GYM");
 
@@ -363,6 +368,10 @@ public class BookFrame extends javax.swing.JFrame {
         customerMnueFrame.show();
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     /**
      * @param args the command line arguments

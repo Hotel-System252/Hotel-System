@@ -184,11 +184,61 @@ public class OldCustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ShowButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
         PaymentFrame f = new PaymentFrame();
+        DefaultTableModel paymentTable = (DefaultTableModel) f.PaymentTable.getModel();
+        int singel = 100;
+        int doubble = 150;
+        int bf = 50;
+        int dinner = 50;
+        int gym = 100;
+        int valet = 150;
+        int nights = book.getNight_No();
+
+        
+        if (book.getType().equalsIgnoreCase("singel")) {
+            ArrayList arraySingel = new ArrayList();
+            arraySingel.add("Singel Room Type");
+            arraySingel.add(singel * nights);
+            paymentTable.addRow(arraySingel.toArray());
+        }
+        if (book.getType().equalsIgnoreCase("double")) {
+            ArrayList arrayDouble = new ArrayList();
+            arrayDouble.add("Double Room Type");
+            arrayDouble.add(doubble * nights);
+            paymentTable.addRow(arrayDouble.toArray());
+        }
+        if (book.isBreakFast()){
+            ArrayList arrayBF = new ArrayList();
+            arrayBF.add("BreakFast");
+            arrayBF.add(bf * nights);
+            paymentTable.addRow(arrayBF.toArray());
+        }
+        if (book.isDinner()) {
+            ArrayList arrayDinner = new ArrayList();
+            arrayDinner.add("Dinner");
+            arrayDinner.add(dinner * nights);
+            paymentTable.addRow(arrayDinner.toArray());
+        }
+        if (book.isGym()) {
+            ArrayList arrayGym = new ArrayList();
+            arrayGym.add("Gym");
+            arrayGym.add(gym * nights);
+            paymentTable.addRow(arrayGym.toArray());
+        }
+        if (book.isVallet()) {
+            ArrayList arrayValet = new ArrayList();
+            arrayValet.add("Valet");
+            arrayValet.add(valet * nights);
+            paymentTable.addRow(arrayValet.toArray());
+        }
+     
+
         f.show();
         f.book = book;
         f.TotalPriceBeforeLabel.setText(String.valueOf(book.getTotalPrice()));
         dispose();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
