@@ -52,51 +52,28 @@ CREATE TABLE IF NOT EXISTS `customers` (
 REPLACE INTO `customers` (`Customer_ID`, `Customer_Name`, `Customer_Age`, `Customer_Phone`) VALUES
 	('1', 'Omar', 24, '0566115702');
 
--- Dumping structure for table hotel_252.customer_info
-CREATE TABLE IF NOT EXISTS `customer_info` (
-  `ID` varchar(50) NOT NULL DEFAULT '',
-  `Name` varchar(50) DEFAULT NULL,
-  `Age` int(11) DEFAULT NULL,
-  `Phone` int(11) DEFAULT NULL,
-  `Pyment_method` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Dumping data for table hotel_252.customer_info: ~0 rows (approximately)
-
--- Dumping structure for table hotel_252.employee
-CREATE TABLE IF NOT EXISTS `employee` (
-  `ID` int(11) NOT NULL,
-  `Name` varchar(50) DEFAULT NULL,
-  `Password` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Dumping data for table hotel_252.employee: ~0 rows (approximately)
-
 -- Dumping structure for table hotel_252.extra_services
 CREATE TABLE IF NOT EXISTS `extra_services` (
-  `Serv_ID` int(11) NOT NULL DEFAULT 0,
-  `Serv_Name` varchar(50) DEFAULT '0',
+  `Serv_Name` varchar(50) NOT NULL DEFAULT '0',
   `Serv_Price` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Serv_ID`) USING BTREE
+  PRIMARY KEY (`Serv_Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Dumping data for table hotel_252.extra_services: ~4 rows (approximately)
-REPLACE INTO `extra_services` (`Serv_ID`, `Serv_Name`, `Serv_Price`) VALUES
-	(1, 'Breakfast', 50),
-	(2, 'Dinner', 50),
-	(3, 'Gym', 100),
-	(4, 'Valet', 150);
+REPLACE INTO `extra_services` (`Serv_Name`, `Serv_Price`) VALUES
+	('Breakfast', 50),
+	('Dinner', 50),
+	('Gym', 100),
+	('Valet', 150);
 
 -- Dumping structure for table hotel_252.include
 CREATE TABLE IF NOT EXISTS `include` (
   `Book_ID` int(11) DEFAULT NULL,
-  `Serv_ID` int(11) DEFAULT NULL,
+  `Serv_Name` varchar(50) DEFAULT NULL,
   KEY `FK_BOOK_ID` (`Book_ID`),
-  KEY `FK_Serv_ID` (`Serv_ID`),
+  KEY `FK_Serv_ID` (`Serv_Name`) USING BTREE,
   CONSTRAINT `FK_BOOK_ID` FOREIGN KEY (`Book_ID`) REFERENCES `books` (`Book_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Serv_ID` FOREIGN KEY (`Serv_ID`) REFERENCES `extra_services` (`Serv_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_include_extra_services` FOREIGN KEY (`Serv_Name`) REFERENCES `extra_services` (`Serv_Name`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Dumping data for table hotel_252.include: ~0 rows (approximately)
@@ -122,42 +99,6 @@ CREATE TABLE IF NOT EXISTS `payments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Dumping data for table hotel_252.payments: ~0 rows (approximately)
-
--- Dumping structure for table hotel_252.rooms
-CREATE TABLE IF NOT EXISTS `rooms` (
-  `Room_No` int(11) NOT NULL,
-  `Room_Type` int(11) DEFAULT NULL,
-  `Customer_ID` varchar(50) DEFAULT NULL,
-  `Check_In` date DEFAULT NULL,
-  `Check_Out` date DEFAULT NULL,
-  `Room_State` int(11) DEFAULT 0,
-  `Breakfast` int(11) DEFAULT 0,
-  `Wifi` int(11) DEFAULT 0,
-  `Swimming_Pool` int(11) DEFAULT 0,
-  `Gym` int(11) DEFAULT 0,
-  `Room_Service` int(11) DEFAULT 0,
-  `Vip` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Room_No`),
-  KEY `FK_rooms_customer_info` (`Customer_ID`),
-  CONSTRAINT `FK_rooms_customer_info` FOREIGN KEY (`Customer_ID`) REFERENCES `customer_info` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Dumping data for table hotel_252.rooms: ~14 rows (approximately)
-REPLACE INTO `rooms` (`Room_No`, `Room_Type`, `Customer_ID`, `Check_In`, `Check_Out`, `Room_State`, `Breakfast`, `Wifi`, `Swimming_Pool`, `Gym`, `Room_Service`, `Vip`) VALUES
-	(1, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(2, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(3, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(4, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(5, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(6, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(7, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(8, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(9, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(10, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(11, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(12, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(13, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL),
-	(14, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL);
 
 -- Dumping structure for table hotel_252.room_table
 CREATE TABLE IF NOT EXISTS `room_table` (
@@ -199,4 +140,3 @@ REPLACE INTO `room_types` (`Type`, `Price`) VALUES
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
-customers
