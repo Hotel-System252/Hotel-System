@@ -9,8 +9,6 @@ package hotel_252;
  *
  * @author Nero
  */
-public class Payment {
-    private int totalPrice;
-    private Discount discountStrategy;
-
+public interface Extra {
+    int applyExtra(int totalPrice);
 }
