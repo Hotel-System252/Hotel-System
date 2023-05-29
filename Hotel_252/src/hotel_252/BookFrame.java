@@ -126,6 +126,11 @@ public class BookFrame extends javax.swing.JFrame {
         jButton2.setText("BACK");
 
         jButton3.setText("NEXT TO CUSTOMER INFO");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -228,15 +233,23 @@ public class BookFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RoomTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RoomTableMouseClicked
+<<<<<<< Updated upstream
            
          
          int row = RoomTable.getSelectedRow();
             String selectedRowRoomID = RoomTable.getModel().getValueAt(row, 0).toString();
             jTextField2.setText(selectedRowRoomID);
+=======
+
+        int row = RoomTable.getSelectedRow();
+        String selectedRowRoomID = RoomTable.getModel().getValueAt(row, 0).toString();
+        jTextField2.setText(selectedRowRoomID);
+>>>>>>> Stashed changes
     }//GEN-LAST:event_RoomTableMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
+<<<<<<< Updated upstream
             
              LocalDate checkInDate = LocalDate.parse(chickIn.getText(), DateTimeFormatter.ISO_DATE);
              LocalDate checkoutDate = checkInDate.plusDays((Integer)jSpinner1.getValue());
@@ -247,6 +260,18 @@ public class BookFrame extends javax.swing.JFrame {
 
             getBookTableObj.setRowCount(0); // To not spam adding same rows 
             ResultSet result = stmt.executeQuery("SELECT * FROM Books Where Room_No IN (SELECT Room_no FROM room_table Where Room_type= '"+jComboBox1.getSelectedItem()+"' AND state = 1 ) ORDER BY Room_no");
+=======
+
+            LocalDate checkInDate = LocalDate.parse(chickIn.getText(), DateTimeFormatter.ISO_DATE);
+            LocalDate checkoutDate = checkInDate.plusDays((Integer) jSpinner1.getValue());
+            checkOut.setText(checkoutDate.format(DateTimeFormatter.ISO_DATE));
+
+            Statement stmt = dbCon.getCon().createStatement();
+            DefaultTableModel getBookTableObj = (DefaultTableModel) RoomTable.getModel();
+
+            getBookTableObj.setRowCount(0); // To not spam adding same rows 
+            ResultSet result = stmt.executeQuery("SELECT * FROM Books Where Room_No IN (SELECT Room_no FROM room_table Where Room_type= '" + jComboBox1.getSelectedItem() + "' AND state = 1 ) ORDER BY Room_no");
+>>>>>>> Stashed changes
 
             ArrayList roomWBooks = new ArrayList();
             ArrayList checkR = new ArrayList();
@@ -269,10 +294,17 @@ public class BookFrame extends javax.swing.JFrame {
                 if (result.isLast()) {
                     roomWBooks.add(bookEnt);
 
+<<<<<<< Updated upstream
                     ResultSet result1 = stmt.executeQuery("select price from room_types where type = '"+jComboBox1.getSelectedItem()+"'");
                     result1.next();
                     Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(chickIn.getText());
                     Room r = new Room(room_number, (String)jComboBox1.getSelectedItem(), result1.getInt(1), (Integer)jSpinner1.getValue(), date1, roomWBooks);
+=======
+                    ResultSet result1 = stmt.executeQuery("select price from room_types where type = '" + jComboBox1.getSelectedItem() + "'");
+                    result1.next();
+                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(chickIn.getText());
+                    RoomCheckAv r = new RoomCheckAv(room_number, (String) jComboBox1.getSelectedItem(), result1.getInt(1), (Integer) jSpinner1.getValue(), date1, roomWBooks);
+>>>>>>> Stashed changes
                     roomWBooks = new ArrayList();
 
                     if (!r.checkAvailable()) {
@@ -283,10 +315,17 @@ public class BookFrame extends javax.swing.JFrame {
                     roomWBooks.add(bookEnt);
                     if (room_number != result.getInt("Room_No")) {
 
+<<<<<<< Updated upstream
                         ResultSet result1 = stmt.executeQuery("select price from room_types where type = '"+jComboBox1.getSelectedItem()+"'");
                         result1.next();
                         Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(chickIn.getText());
                         Room r = new Room(room_number, (String)jComboBox1.getSelectedItem(), result1.getInt(1), (Integer)jSpinner1.getValue(), date1, roomWBooks);
+=======
+                        ResultSet result1 = stmt.executeQuery("select price from room_types where type = '" + jComboBox1.getSelectedItem() + "'");
+                        result1.next();
+                        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(chickIn.getText());
+                        RoomCheckAv r = new RoomCheckAv(room_number, (String) jComboBox1.getSelectedItem(), result1.getInt(1), (Integer) jSpinner1.getValue(), date1, roomWBooks);
+>>>>>>> Stashed changes
                         roomWBooks = new ArrayList();
 
                         if (!r.checkAvailable()) {
@@ -301,15 +340,20 @@ public class BookFrame extends javax.swing.JFrame {
             String not = "";
 
             if (checkR.isEmpty()) {
+<<<<<<< Updated upstream
                 result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= '"+jComboBox1.getSelectedItem()+"' AND state = 1 ");
+=======
+                result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= '" + jComboBox1.getSelectedItem() + "' AND state = 1 ");
+>>>>>>> Stashed changes
             } else {
 
                 for (int i = 0; i < checkR.size(); i++) {
-                    Room g = (Room) checkR.get(i);
+                    RoomCheckAv g = (RoomCheckAv) checkR.get(i);
                     not += g.getRoom_No() + ",";
 
                 }
                 not = not.substring(0, not.length() - 1);
+<<<<<<< Updated upstream
                 result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= '"+jComboBox1.getSelectedItem()+"' AND state = 1 AND Room_no NOT IN( " + not + ")");
             }
             
@@ -318,10 +362,20 @@ public class BookFrame extends javax.swing.JFrame {
                 ArrayList roomsWOBook = new ArrayList();
                 roomsWOBook.add(room_number);
                 getBookTableObj.addRow(roomsWOBook.toArray());
+=======
+                result = stmt.executeQuery("SELECT Room_no FROM room_table Where Room_type= '" + jComboBox1.getSelectedItem() + "' AND state = 1 AND Room_no NOT IN( " + not + ")");
+>>>>>>> Stashed changes
             }
             
 
-            System.out.println("");
+            while (result.next()) {
+                int room_number = result.getInt("Room_No");
+                ArrayList roomsWOBook = new ArrayList();
+                roomsWOBook.add(room_number);
+                getBookTableObj.addRow(roomsWOBook.toArray());
+            }
+
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(GetInfoFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -334,6 +388,36 @@ public class BookFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+<<<<<<< Updated upstream
+=======
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Book book = new Book();
+        book.setBreakFast(jCheckBox1.isSelected());
+        book.setDinner(jCheckBox2.isSelected());
+        book.setGym(jCheckBox3.isSelected());
+        book.setVallet(jCheckBox4.isSelected());
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd").parse(chickIn.getText());
+            date2 = new SimpleDateFormat("yyyy-MM-dd").parse(checkOut.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(BookFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        book.setCheck_In(date1);
+        book.setCheck_Out(date2);
+        book.setRoom_No(Integer.valueOf(jTextField2.getText()));
+        book.setNight_No((Integer) jSpinner1.getValue());
+        book.setType((String)jComboBox1.getSelectedItem());
+        book.totalPrice();
+        
+        CustomerMnueFrame customerMnueFrame = new CustomerMnueFrame();
+        customerMnueFrame.book=book;
+        customerMnueFrame.show();
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+>>>>>>> Stashed changes
     /**
      * @param args the command line arguments
      */

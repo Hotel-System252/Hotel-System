@@ -5,35 +5,36 @@
  */
 package hotel_252;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Nero
  */
-public class Valet {
+public class Valet extends ExtraServicesDecorator {
 
-    String Valet;
-    int Price;
-
-    public Valet(String Valet, int Price) {
-        this.Valet = Valet;
-        this.Price = Price;
-
+    public Valet(Room room) {
+        this.room = room;
     }
+    int price;
 
-    public String getValet() {
-        return Valet;
+    @Override
+    public int cost() {
+
+        DataBaseConnection dbCon = DataBaseConnection.getconnnection();
+
+        try {
+            Statement stmt = dbCon.getCon().createStatement();
+            ResultSet result1 = stmt.executeQuery("select Serv_price from extra_services where Serv_name = 'Valet'");
+            result1.next();
+            price = result1.getInt("Serv_price");
+        } catch (SQLException ex) {
+            Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return price + room.cost();
     }
-
-    public void setValet(String Valet) {
-        this.Valet = Valet;
-    }
-
-    public int getPrice() {
-        return Price;
-    }
-
-    public void setPrice(int Price) {
-        this.Price = Price;
-    }
-
 }

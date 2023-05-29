@@ -5,34 +5,42 @@
  */
 package hotel_252;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Nero
  */
-public class BreakFast {
+public class BreakFast extends ExtraServicesDecorator{
 
-    String Breakfast;
-    int Price;
-
-    public BreakFast(String BreakFast, int Price) {
-        this.Breakfast = BreakFast;
-        this.Price = Price;
+    public BreakFast(Room room) {
+        this.room=room;
     }
+   int price;
+   
+    @Override
+    public int cost() {
+        
+        
+        DataBaseConnection dbCon = DataBaseConnection.getconnnection();
 
-    public String getBreakfast() {
-        return Breakfast;
+        try {
+            Statement stmt = dbCon.getCon().createStatement();
+            ResultSet result1 = stmt.executeQuery("select Serv_price from extra_services where Serv_name = 'breakfast'");
+            result1.next();
+            price = result1.getInt("Serv_price");
+        } catch (SQLException ex) {
+            Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return price +room.cost();
     }
+        
+    
 
-    public void setBreakfast(String Breakfast) {
-        this.Breakfast = Breakfast;
-    }
-
-    public int getPrice() {
-        return Price;
-    }
-
-    public void setPrice(int Price) {
-        this.Price = Price;
-    }
+    
 
 }

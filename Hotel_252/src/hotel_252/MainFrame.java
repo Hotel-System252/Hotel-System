@@ -252,7 +252,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelBookActionPerformed
 
     private void bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingActionPerformed
-        // TODO add your handling code here:
+                BookFrame bookFrame = new BookFrame();
+        bookFrame.show();
+        dispose();
     }//GEN-LAST:event_bookingActionPerformed
 
     /**

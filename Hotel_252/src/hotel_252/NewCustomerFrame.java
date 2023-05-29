@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Nero
  */
 public class NewCustomerFrame extends javax.swing.JFrame {
-
+    public Book book;
     //DB Connection
     DataBaseConnection dbCon = DataBaseConnection.getconnnection();
 
@@ -146,27 +146,8 @@ public class NewCustomerFrame extends javax.swing.JFrame {
             
             //Show Payment info into Payment Table in PaymentFrame
             PaymentFrame f = new PaymentFrame();
-            DefaultTableModel Payment = (DefaultTableModel) f.PaymentTable.getModel();
-            Payment.setRowCount(0);
-            result = stmt.executeQuery("SELECT * FROM Book");
-            //Store Payment info onto ArrayList
-            /*
-            while (result.next()) {
-                
-                int room_number = result.getInt("");
-                String room_Type = result.getString("");
-                int state= result.getInt("State");
-
-                ArrayList dbData = new ArrayList();
-                dbData.add(room_number);
-                dbData.add(room_Type);
-                dbData.add(state);
-
-                Payment.addRow(dbData.toArray());
-                
-            }
-            */
             f.show();
+            f.book = book;
             dispose();
             // if their is match show message 
             }else{

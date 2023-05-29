@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Nero
  */
 public class OldCustomerFrame extends javax.swing.JFrame {
+    public Book book;
     DataBaseConnection dbCon = DataBaseConnection.getconnnection();
     /**
      * Creates new form OldCustomer
@@ -176,7 +177,10 @@ public class OldCustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ShowButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+                    PaymentFrame f = new PaymentFrame();
+            f.show();
+            f.book = book;
+            dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
