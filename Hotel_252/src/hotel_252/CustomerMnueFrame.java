@@ -79,20 +79,14 @@ public class CustomerMnueFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         NewCustomerFrame f = new NewCustomerFrame();
-<<<<<<< Updated upstream
-=======
         f.book = book;
->>>>>>> Stashed changes
         f.show();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         OldCustomerFrame f = new OldCustomerFrame();
-<<<<<<< Updated upstream
-=======
         f.book = book;
->>>>>>> Stashed changes
         f.show();
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
