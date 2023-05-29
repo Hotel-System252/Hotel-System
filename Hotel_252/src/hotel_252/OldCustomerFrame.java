@@ -18,8 +18,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Nero
  */
 public class OldCustomerFrame extends javax.swing.JFrame {
+
     public Book book;
     DataBaseConnection dbCon = DataBaseConnection.getconnnection();
+
     /**
      * Creates new form OldCustomer
      */
@@ -67,6 +69,11 @@ public class OldCustomerFrame extends javax.swing.JFrame {
         IDLabel.setText("Customer ID");
 
         jButton1.setText("Return");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Next Step");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -138,29 +145,29 @@ public class OldCustomerFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(46, 46, 46))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ShowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowButtonActionPerformed
-       try {
+        try {
 
             Statement stmt = dbCon.getCon().createStatement();
             DefaultTableModel CusTbl = (DefaultTableModel) CustomerTable.getModel();
             CusTbl.setRowCount(0);
             // searching for customer by ID
-            ResultSet result = stmt.executeQuery("SELECT * FROM CUSTOMERS WHERE Customer_ID = "+ IDField.getText());
+            ResultSet result = stmt.executeQuery("SELECT * FROM CUSTOMERS WHERE Customer_ID = " + IDField.getText());
 
             while (result.next()) {
-                
+
                 int ID = result.getInt("Customer_ID");
-                String Name= result.getString("Customer_Name");
-                int Age= result.getInt("Customer_Age");
-                int Phone= result.getInt("Customer_Phone");
+                String Name = result.getString("Customer_Name");
+                int Age = result.getInt("Customer_Age");
+                int Phone = result.getInt("Customer_Phone");
 
                 ArrayList dbData = new ArrayList();
                 dbData.add(ID);
@@ -169,7 +176,7 @@ public class OldCustomerFrame extends javax.swing.JFrame {
                 dbData.add(Phone);
 
                 CusTbl.addRow(dbData.toArray());
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(LockRoomFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -177,11 +184,17 @@ public class OldCustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ShowButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                    PaymentFrame f = new PaymentFrame();
-            f.show();
-            f.book = book;
-            dispose();
+        PaymentFrame f = new PaymentFrame();
+        f.show();
+        f.book = book;
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CustomerMnueFrame f = new CustomerMnueFrame();
+        f.show();
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
