@@ -38,7 +38,7 @@ public class Book {
             if (vallet) {
                 r = new Valet(r);
             }
-            totalPrice = r.cost();
+            totalPrice = r.cost() * Night_No;
         } else if (type.equalsIgnoreCase("double")) {
             Room r = new DoubleRoomType();
             if (breakFast) {
@@ -53,7 +53,7 @@ public class Book {
             if (vallet) {
                 r = new Valet(r);
             }
-            totalPrice = r.cost();
+            totalPrice = r.cost() * Night_No ;
         }
     }
 
@@ -102,7 +102,7 @@ public class Book {
 
 
     public int getTotalPrice() {
-        return totalPrice;
+        return totalPrice ;
     }
 
     public void setTotalPrice(int totalPrice) {
