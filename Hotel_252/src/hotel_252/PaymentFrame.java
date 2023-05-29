@@ -8,6 +8,10 @@ package hotel_252;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -224,15 +228,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         try {
 
             Statement stmt = dbCon.getCon().createStatement();
-            int[] nums = new int[10000];
 
-            Random randomGenerator = new Random();
-            int n = 0;
-            for (int i = 0; i < nums.length; ++i) {
-                nums[i] = randomGenerator.nextInt(10000);
-                n += nums[i];
-                break;
-            }
 
             int Room_No = book.getRoom_No();
             int Book_ID = book.getBook_ID();
@@ -241,17 +237,32 @@ public class PaymentFrame extends javax.swing.JFrame {
             int Night_No = book.getNight_No();
             Date Check_In = book.getCheck_In();
             Date Check_Out = book.getCheck_Out();
+            
+            //Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(chickIn.getText());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+            String strDate = dateFormat.format(Check_In);
+            LocalDate checkInDate = LocalDate.parse(strDate, DateTimeFormatter.ISO_DATE);
+              ResultSet result =  stmt.executeQuery("select Payment_id from PAYMENTS");
+              result.last();
+              if (result.getRow()==0) {
+                Payment_ID=1;
+            }else{
+              Payment_ID=(result.getInt(1))+1;
+              }
+              java.sql.Date sqlDate = new java.sql.Date(Check_In.getTime());
+
             if (jComboBox1.getSelectedItem() == "Cash") {
-                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + n + "," + "'Cash'," + jLabel5.getText() + ")");
-                stmt.executeQuery("INSERT INTO BOOKS VALUES(" + Room_No + "," + Book_ID + "," + Check_In + "," + Check_Out + "," + Customer_ID + "," + n + "," + Night_No + ")");
+                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + Payment_ID + "," + "'Cash'," + jLabel5.getText() + ")");
+            stmt.executeQuery("INSERT INTO BOOKS VALUES(" + book.getRoom_No() + "," + book.getBook_ID() + "," +" STR_TO_DATE("+strDate+",'%Y-%m-$d') "+ "," + " STR_TO_DATE("+strDate+",'%Y-%m-$d')  " + "," + book.getCustomer_ID() + "," + Payment_ID + "," + book.getNight_No() + ")");
+
             } else if (jComboBox1.getSelectedItem() == "Mada") {
-                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + n + "," + "'Mada'," + jLabel5.getText() + ")");
+                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + Payment_ID + "," + "'Mada'," + jLabel5.getText() + ")");
                 //stmt.executeQuery("INSERT INTO BOOKS VALUES(" + book.getRoom_No() + "," + book.getBook_ID() + "," + book.getCheck_In() + "," + book.getCheck_Out() + "," + book.getCustomer_ID() + "," + n + "," + book.getNight_No() + ")");
             } else if (jComboBox1.getSelectedItem() == "Visa") {
-                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + n + "," + "'Visa'," + jLabel5.getText() + ")");
+                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + Payment_ID + "," + "'Visa'," + jLabel5.getText() + ")");
                 //stmt.executeQuery("INSERT INTO BOOKS VALUES(" + book.getRoom_No() + "," + book.getBook_ID() + "," + book.getCheck_In() + "," + book.getCheck_Out() + "," + book.getCustomer_ID() + "," + n + "," + book.getNight_No() + ")");
             } else if (jComboBox1.getSelectedItem() == "Mastercard") {
-                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + n + "," + "'Mastercard'," + jLabel5.getText() + ")");
+                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + Payment_ID + "," + "'Mastercard'," + jLabel5.getText() + ")");
                 //stmt.executeQuery("INSERT INTO BOOKS VALUES(" + book.getRoom_No() + "," + book.getBook_ID() + "," + book.getCheck_In() + "," + book.getCheck_Out() + "," + book.getCustomer_ID() + "," + n + "," + book.getNight_No() + ")");
             }
 
