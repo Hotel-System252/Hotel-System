@@ -12,10 +12,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -65,6 +67,12 @@ public class BookFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("CHECK IN");
+
+        chickIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chickInActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("NUMBER OF NIGHT");
 
@@ -246,8 +254,12 @@ public class BookFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-
+            LocalDate currentDate = LocalDate.now();
             LocalDate checkInDate = LocalDate.parse(chickIn.getText(), DateTimeFormatter.ISO_DATE);
+
+            if (checkInDate.isBefore(currentDate)) {
+                throw new DateTimeParseException("Invalid date.", chickIn.getText(), 0);
+            }
             LocalDate checkoutDate = checkInDate.plusDays((Integer) jSpinner1.getValue());
             checkOut.setText(checkoutDate.format(DateTimeFormatter.ISO_DATE));
 
@@ -329,12 +341,12 @@ public class BookFrame extends javax.swing.JFrame {
                 getBookTableObj.addRow(roomsWOBook.toArray());
             }
 
-            
-
         } catch (SQLException ex) {
             Logger.getLogger(GetInfoFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(BookFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid date format.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -360,11 +372,11 @@ public class BookFrame extends javax.swing.JFrame {
         book.setCheck_Out(date2);
         book.setRoom_No(Integer.valueOf(jTextField2.getText()));
         book.setNight_No((Integer) jSpinner1.getValue());
-        book.setType((String)jComboBox1.getSelectedItem());
+        book.setType((String) jComboBox1.getSelectedItem());
         book.totalPrice();
-        
+
         CustomerMnueFrame customerMnueFrame = new CustomerMnueFrame();
-        customerMnueFrame.book=book;
+        customerMnueFrame.book = book;
         customerMnueFrame.show();
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -372,6 +384,10 @@ public class BookFrame extends javax.swing.JFrame {
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void chickInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chickInActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chickInActionPerformed
 
     /**
      * @param args the command line arguments
