@@ -194,7 +194,7 @@ public class OldCustomerFrame extends javax.swing.JFrame {
         int gym = 100;
         int valet = 150;
         int nights = book.getNight_No();
-
+        f.book = book;
         
         if (book.getType().equalsIgnoreCase("singel")) {
             ArrayList arraySingel = new ArrayList();
@@ -235,7 +235,6 @@ public class OldCustomerFrame extends javax.swing.JFrame {
      
 
         f.show();
-        f.book = book;
         f.TotalPriceBeforeLabel.setText(String.valueOf(book.getTotalPrice()));
         dispose();
 
