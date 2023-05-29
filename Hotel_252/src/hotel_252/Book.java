@@ -40,7 +40,7 @@ public class Book {
             }
             totalPrice = r.cost();
         } else if (type.equalsIgnoreCase("double")) {
-            Room r = new SingelRoomType();
+            Room r = new DoubleRoomType();
             if (breakFast) {
                 r = new BreakFast(r);
             }

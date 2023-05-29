@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Nero
  */
-public class DoubleRoomType {
+public class DoubleRoomType extends Room {
 
     int price;
 
