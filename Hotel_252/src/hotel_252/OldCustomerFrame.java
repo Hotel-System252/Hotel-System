@@ -161,10 +161,10 @@ public class OldCustomerFrame extends javax.swing.JFrame {
             CusTbl.setRowCount(0);
             // searching for customer by ID
             ResultSet result = stmt.executeQuery("SELECT * FROM CUSTOMERS WHERE Customer_ID = " + IDField.getText());
-
+            int ID=0;
             while (result.next()) {
 
-                int ID = result.getInt("Customer_ID");
+                ID = result.getInt("Customer_ID");
                 String Name = result.getString("Customer_Name");
                 int Age = result.getInt("Customer_Age");
                 int Phone = result.getInt("Customer_Phone");
@@ -176,8 +176,10 @@ public class OldCustomerFrame extends javax.swing.JFrame {
                 dbData.add(Phone);
 
                 CusTbl.addRow(dbData.toArray());
-
+     
             }
+            
+            book.setCustomer_ID(ID);
         } catch (SQLException ex) {
             Logger.getLogger(LockRoomFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

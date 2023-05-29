@@ -5,12 +5,24 @@
  */
 package hotel_252;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nero
  */
 public class PaymentFrame extends javax.swing.JFrame {
-    
+
+    DataBaseConnection dbCon = DataBaseConnection.getconnnection();
+
     public Book book;
 
     /**
@@ -209,7 +221,43 @@ public class PaymentFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+
+            Statement stmt = dbCon.getCon().createStatement();
+            int[] nums = new int[10000];
+
+            Random randomGenerator = new Random();
+            int n = 0;
+            for (int i = 0; i < nums.length; ++i) {
+                nums[i] = randomGenerator.nextInt(10000);
+                n += nums[i];
+                break;
+            }
+
+            int Room_No = book.getRoom_No();
+            int Book_ID = book.getBook_ID();
+            int Customer_ID = book.getCustomer_ID();
+            int Payment_ID ;
+            int Night_No = book.getNight_No();
+            Date Check_In = book.getCheck_In();
+            Date Check_Out = book.getCheck_Out();
+            if (jComboBox1.getSelectedItem() == "Cash") {
+                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + n + "," + "'Cash'," + jLabel5.getText() + ")");
+                stmt.executeQuery("INSERT INTO BOOKS VALUES(" + Room_No + "," + Book_ID + "," + Check_In + "," + Check_Out + "," + Customer_ID + "," + n + "," + Night_No + ")");
+            } else if (jComboBox1.getSelectedItem() == "Mada") {
+                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + n + "," + "'Mada'," + jLabel5.getText() + ")");
+                //stmt.executeQuery("INSERT INTO BOOKS VALUES(" + book.getRoom_No() + "," + book.getBook_ID() + "," + book.getCheck_In() + "," + book.getCheck_Out() + "," + book.getCustomer_ID() + "," + n + "," + book.getNight_No() + ")");
+            } else if (jComboBox1.getSelectedItem() == "Visa") {
+                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + n + "," + "'Visa'," + jLabel5.getText() + ")");
+                //stmt.executeQuery("INSERT INTO BOOKS VALUES(" + book.getRoom_No() + "," + book.getBook_ID() + "," + book.getCheck_In() + "," + book.getCheck_Out() + "," + book.getCustomer_ID() + "," + n + "," + book.getNight_No() + ")");
+            } else if (jComboBox1.getSelectedItem() == "Mastercard") {
+                stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + n + "," + "'Mastercard'," + jLabel5.getText() + ")");
+                //stmt.executeQuery("INSERT INTO BOOKS VALUES(" + book.getRoom_No() + "," + book.getBook_ID() + "," + book.getCheck_In() + "," + book.getCheck_Out() + "," + book.getCustomer_ID() + "," + n + "," + book.getNight_No() + ")");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LockRoomFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
