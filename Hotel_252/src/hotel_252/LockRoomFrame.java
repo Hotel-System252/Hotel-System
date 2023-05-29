@@ -131,9 +131,7 @@ public class LockRoomFrame extends javax.swing.JFrame {
             DefaultTableModel DefaultTableModel = (DefaultTableModel) RoomTable.getModel();
             Statement stmt = dbCon.getCon().createStatement();
             DefaultTableModel.setValueAt(0, RoomTable.getSelectedRow(), 2);
-            int row = RoomTable.getSelectedRow();
-            String selectedRowRoomID = RoomTable.getModel().getValueAt(row, 0).toString();
-            stmt.execute("update Room_table set state = 0 WHERE Room_NO= "+selectedRowRoomID);
+            stmt.execute("update Room_table set state = 0 WHERE Room_NO= "+RoomTable.getValueAt(RoomTable.getSelectedRow(), 0));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
