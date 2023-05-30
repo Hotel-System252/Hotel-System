@@ -37,7 +37,9 @@ CREATE TABLE IF NOT EXISTS `books` (
   CONSTRAINT `FK_Room_No` FOREIGN KEY (`Room_No`) REFERENCES `room_table` (`Room_No`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table hotel_252.books: ~0 rows (approximately)
+-- Dumping data for table hotel_252.books: ~1 rows (approximately)
+REPLACE INTO `books` (`Room_No`, `Book_ID`, `Check_In`, `Check_Out`, `Customer_ID`, `Payment_ID`, `No_Nights`) VALUES
+	(5, 0, '2023-05-30', '2023-05-31', '1', 916, 1);
 
 -- Dumping structure for table hotel_252.customers
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -98,7 +100,10 @@ CREATE TABLE IF NOT EXISTS `payments` (
   PRIMARY KEY (`Payment_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table hotel_252.payments: ~0 rows (approximately)
+-- Dumping data for table hotel_252.payments: ~2 rows (approximately)
+REPLACE INTO `payments` (`Payment_ID`, `Payment_Type`, `Total`) VALUES
+	(915, 'Cash', 300),
+	(916, 'Cash', 200);
 
 -- Dumping structure for table hotel_252.room_table
 CREATE TABLE IF NOT EXISTS `room_table` (
@@ -140,7 +145,3 @@ REPLACE INTO `room_types` (`Type`, `Price`) VALUES
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
-<<<<<<< Updated upstream
-=======
-croom_tableroomspaymentsloginincludeustomers
->>>>>>> Stashed changes

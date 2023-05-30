@@ -253,6 +253,7 @@ public class PaymentFrame extends javax.swing.JFrame {
 
             if (jComboBox1.getSelectedItem() == "Cash") {
                 stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + Payment_ID + "," + "'Cash'," + jLabel5.getText() + ")");
+                System.out.println("stmt.executeQuery(\"INSERT INTO BOOKS VALUES(\" + book.getRoom_No() + \",\" + book.getBook_ID() + \",\" + \" STR_TO_DATE('\" + strDate + \"','%Y-%m-%d') \" + \",\" + \" STR_TO_DATE('\" + strout + \"','%Y-%m-%d')  \" + \",\" + book.getCustomer_ID() + \",\" + Payment_ID + \",\" + book.getNight_No() + \")\");");
                 stmt.executeQuery("INSERT INTO BOOKS VALUES(" + book.getRoom_No() + "," + book.getBook_ID() + "," + " STR_TO_DATE('" + strDate + "','%Y-%m-%d') " + "," + " STR_TO_DATE('" + strout + "','%Y-%m-%d')  " + "," + book.getCustomer_ID() + "," + Payment_ID + "," + book.getNight_No() + ")");
             } else if (jComboBox1.getSelectedItem() == "Mada") {
                 stmt.executeQuery("INSERT INTO PAYMENTS VALUES(" + Payment_ID + "," + "'Mada'," + jLabel5.getText() + ")");
