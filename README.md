@@ -21,3 +21,18 @@ Receptionists can efficiently manage cancellations.
 
 ![Schema ](https://github.com/Hotel-System252/Hotel-System/assets/98660298/33a028aa-a0a5-4f44-9f81-9d22da9870b4)
 
+## Design Patterns Used in Project
+
+**1-Singleton Design Pattern - Connection Object**
+
+In our project, we have employed the Singleton design pattern to ensure that only one object of the connection is created. The Singleton pattern restricts the instantiation of a class to a single object, providing a global point of access to it. By utilizing this pattern for the connection object, we can ensure that multiple instances of the connection are not created unnecessarily, thereby optimizing resource usage and promoting a centralized and consistent connection state.
+
+**2-Decorator Design Pattern - Total Price Calculation**
+
+The Decorator design pattern has been implemented in our project to calculate the total price of a book, considering factors such as room type and extra services. This pattern allows us to dynamically add or modify the behavior of an object at runtime by wrapping it with decorator objects. By using the Decorator pattern for price calculation, we can extend the functionality of the book class without directly modifying its code. This approach promotes flexibility, modularity, and reusability in our pricing system.
+
+**3-Strategy Design Pattern - Payment Methods**
+
+The Strategy design pattern has been utilized to implement payment methods in our project. Each payment method is encapsulated in a separate class, and all these classes adhere to a common interface or base class. This design allows us to switch between different payment methods seamlessly and interchangeably, without tightly coupling the payment logic to the client code. By adopting the Strategy pattern for payment methods, we can easily introduce new payment implementations or modify existing ones without affecting other parts of the system.
+
+By employing these design patterns in our project, we aim to enhance maintainability, flexibility, and scalability. These patterns promote code reusability, separation of concerns, and adherence to software design principles.
